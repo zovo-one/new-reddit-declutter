@@ -1,0 +1,734 @@
+/* ============================================================================
+ * newr0063-base.css — Zovo brand design system
+ * ----------------------------------------------------------------------------
+ * The single shared stylesheet every Zovo Chrome extension imports. It defines
+ * the full brand as CSS custom properties (colors, type scale, radii, shadows,
+ * transitions) plus the base component classes used across popup, options,
+ * onboarding, and the paywall modal.
+ *
+ * Source of truth: BUILD-RULES.md § ZOVO BRAND SYSTEM.
+ * Import first, before any per-extension stylesheet, so tokens cascade down:
+ *     <link rel="stylesheet" href="newr0063-base.css">
+ *     <link rel="stylesheet" href="popup.css">
+ * ========================================================================== */
+
+/* ---- Design tokens (light) ------------------------------------------------ */
+:root {
+  /* Brand */
+  --newr0063-primary:        #5ce7bd;   /* Zovo purple — buttons, links, active   */
+  --newr0063-primary-dark:   #4bd1a8;   /* hover                                  */
+  --newr0063-primary-light:  #7cf0cf;   /* subtle accents / backgrounds           */
+  --newr0063-primary-50:     #effdf9;   /* tint fill (accent-bg)                  */
+  --newr0063-accent:         #57d300;   /* teal — secondary actions, highlights   */
+
+  /* Surfaces & text */
+  --newr0063-bg:             #FFFFFF;
+  --newr0063-surface:        #f8faf8;   /* cards, input backgrounds               */
+  --newr0063-surface-2:      #f1f4f2;   /* nested / hover surface                 */
+  --newr0063-text:           #1a2e26;   /* text primary                           */
+  --newr0063-text-secondary: #6b8070;
+  --newr0063-border:         #e5ebe7;
+
+  /* Status */
+  --newr0063-success:        #8eb910;
+  --newr0063-warning:        #f50bc3;
+  --newr0063-error:          #a844ef;
+  --newr0063-pro:            #f50bc3;   /* gold — PRO badges + upgrade CTAs        */
+  --newr0063-pro-dark:       #d906c0;
+  --newr0063-on-pro:         #FFFFFF;
+
+  /* Typography */
+  --newr0063-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --newr0063-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+  --newr0063-fs-caption:    12px;
+  --newr0063-fs-body:       14px;
+  --newr0063-fs-subheading: 16px;
+  --newr0063-fs-heading:    20px;
+  --newr0063-fs-title:      24px;
+  --newr0063-fs-hero:       44px;   /* the one big number per screen */
+  --newr0063-fw-body:       400;
+  --newr0063-fw-medium:     500;
+  --newr0063-fw-heading:    600;
+  --newr0063-lh:            1.5;
+
+  /* Radii — slightly rounder than 8/6/4 reads friendlier/premium */
+  --newr0063-radius-card:   12px;
+  --newr0063-radius-btn:    8px;
+  --newr0063-radius-input:  8px;
+  --newr0063-radius-pill:   9999px;
+
+  /* Shadows — soft, low, single-direction (premium ≠ hard drop shadow) */
+  --newr0063-shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+  --newr0063-shadow: 0 1px 3px rgba(16,24,40,0.06), 0 6px 16px -6px rgba(16,24,40,0.10);
+  --newr0063-shadow-lg: 0 24px 48px -12px rgba(16,24,40,0.28);
+
+  /* Motion */
+  --newr0063-transition: 150ms ease-in-out;
+
+  /* Layout */
+  --newr0063-popup-w:      360px;
+  --newr0063-popup-w-wide: 400px;
+  --newr0063-popup-maxh:   560px;
+  --newr0063-space-1: 4px;  --newr0063-space-2: 8px;  --newr0063-space-3: 12px;
+  --newr0063-space-4: 16px; --newr0063-space-5: 20px; --newr0063-space-6: 24px;
+  --newr0063-space-7: 32px; --newr0063-space-8: 40px;
+}
+
+/* ---- Dark mode ------------------------------------------------------------ */
+/* Follows the system preference by default; a manual [data-theme] on <html>
+ * (set from General → Theme) always wins in both directions. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --newr0063-primary-50:     #1f453a;
+    --newr0063-bg:             #0f1a15;
+    --newr0063-surface:        #1a2e26;
+    --newr0063-surface-2:      #23382f;
+    --newr0063-text:           #f5faf8;
+    --newr0063-text-secondary: #A1A1AA;
+    --newr0063-border:         #2e453b;
+    --newr0063-shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+    --newr0063-shadow-lg: 0 20px 40px -8px rgba(0,0,0,0.6), 0 8px 16px -8px rgba(0,0,0,0.4);
+  }
+}
+:root[data-theme='dark'] {
+  --newr0063-primary-50:     #1f453a;
+  --newr0063-bg:             #0f1a15;
+  --newr0063-surface:        #1a2e26;
+  --newr0063-surface-2:      #23382f;
+  --newr0063-text:           #f5faf8;
+  --newr0063-text-secondary: #A1A1AA;
+  --newr0063-border:         #2e453b;
+  --newr0063-shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+  --newr0063-shadow-lg: 0 20px 40px -8px rgba(0,0,0,0.6), 0 8px 16px -8px rgba(0,0,0,0.4);
+}
+
+/* ---- Base ----------------------------------------------------------------- */
+.newr0063-root,
+body.newr0063 {
+  margin: 0;
+  font-family: var(--newr0063-font);
+  font-size: var(--newr0063-fs-body);
+  line-height: var(--newr0063-lh);
+  color: var(--newr0063-text);
+  background: var(--newr0063-bg);
+  -webkit-font-smoothing: antialiased;
+}
+.newr0063-root *, .newr0063-root *::before, .newr0063-root *::after { box-sizing: border-box; }
+
+/* Popup sizing helper */
+.newr0063-popup {
+  width: var(--newr0063-popup-w);
+  max-height: var(--newr0063-popup-maxh);
+  overflow-y: auto;
+}
+.newr0063-popup--wide { width: var(--newr0063-popup-w-wide); }
+
+/* ---- Header --------------------------------------------------------------- */
+.newr0063-header {
+  display: flex;
+  align-items: center;
+  gap: var(--newr0063-space-3);
+  padding: var(--newr0063-space-4) var(--newr0063-space-5);
+  border-bottom: 1px solid var(--newr0063-border);
+}
+.newr0063-header__icon { width: 28px; height: 28px; border-radius: var(--newr0063-radius-input); }
+.newr0063-header__title {
+  flex: 1; min-width: 0;
+  font-size: var(--newr0063-fs-subheading);
+  font-weight: var(--newr0063-fw-heading);
+  letter-spacing: -0.01em;
+}
+
+/* ---- Card ----------------------------------------------------------------- */
+.newr0063-card {
+  background: var(--newr0063-bg);
+  border: 1px solid var(--newr0063-border);
+  border-radius: var(--newr0063-radius-card);
+  padding: var(--newr0063-space-5);
+  box-shadow: var(--newr0063-shadow);
+}
+.newr0063-card--flush { box-shadow: none; background: var(--newr0063-surface); }
+
+/* ---- Buttons -------------------------------------------------------------- */
+.newr0063-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--newr0063-space-2);
+  min-height: 40px;                /* comfortable premium tap target */
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: var(--newr0063-fs-body);
+  font-weight: var(--newr0063-fw-medium);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--newr0063-radius-btn);
+  cursor: pointer;
+  transition: background var(--newr0063-transition), border-color var(--newr0063-transition),
+              color var(--newr0063-transition), transform var(--newr0063-transition);
+}
+.newr0063-btn:active { transform: translateY(1px); }
+.newr0063-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--newr0063-bg), 0 0 0 4px var(--newr0063-primary);
+}
+.newr0063-btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+.newr0063-btn--primary { background: var(--newr0063-primary); color: #fff; }
+.newr0063-btn--primary:hover:not([disabled]) { background: var(--newr0063-primary-dark); }
+
+.newr0063-btn--secondary {
+  background: var(--newr0063-surface);
+  color: var(--newr0063-text);
+  border-color: var(--newr0063-border);
+}
+.newr0063-btn--secondary:hover:not([disabled]) { background: var(--newr0063-surface-2); }
+
+.newr0063-btn--ghost { background: transparent; color: var(--newr0063-primary); }
+.newr0063-btn--ghost:hover:not([disabled]) { background: var(--newr0063-primary-50); }
+
+/* Gold upgrade CTA — the only button that uses the PRO color. */
+.newr0063-btn--pro {
+  background: var(--newr0063-pro);
+  color: var(--newr0063-on-pro);
+  font-weight: var(--newr0063-fw-heading);
+}
+.newr0063-btn--pro:hover:not([disabled]) { background: var(--newr0063-pro-dark); }
+
+.newr0063-btn--block { width: 100%; }
+
+/* ---- Inputs --------------------------------------------------------------- */
+.newr0063-input {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: var(--newr0063-fs-body);
+  color: var(--newr0063-text);
+  background: var(--newr0063-surface);
+  border: 1px solid var(--newr0063-border);
+  border-radius: var(--newr0063-radius-input);
+  transition: border-color var(--newr0063-transition), box-shadow var(--newr0063-transition);
+}
+.newr0063-input:focus-visible {
+  outline: none;
+  border-color: var(--newr0063-primary);
+  box-shadow: 0 0 0 3px var(--newr0063-primary-50);
+}
+.newr0063-label {
+  display: block;
+  font-size: var(--newr0063-fs-caption);
+  font-weight: var(--newr0063-fw-medium);
+  color: var(--newr0063-text-secondary);
+  margin-bottom: var(--newr0063-space-1);
+}
+
+/* ---- PRO badge ------------------------------------------------------------ */
+.newr0063-pro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--newr0063-pro);
+  background: transparent;
+  border: 1px solid var(--newr0063-pro);
+  border-radius: var(--newr0063-radius-pill);
+  line-height: 1.4;
+}
+.newr0063-pro-badge--solid { color: var(--newr0063-on-pro); background: var(--newr0063-pro); border-color: var(--newr0063-pro); }
+.newr0063-pro-badge__lock { width: 10px; height: 10px; }
+
+/* ---- Footer --------------------------------------------------------------- */
+.newr0063-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--newr0063-space-3) var(--newr0063-space-5);
+  font-size: var(--newr0063-fs-caption);
+  color: var(--newr0063-text-secondary);
+  border-top: 1px solid var(--newr0063-border);
+}
+.newr0063-footer a { color: var(--newr0063-primary); text-decoration: none; }
+.newr0063-footer a:hover { text-decoration: underline; }
+
+/* ---- Utility -------------------------------------------------------------- */
+.newr0063-muted { color: var(--newr0063-text-secondary); }
+.newr0063-mono  { font-family: var(--newr0063-font-mono); }
+.newr0063-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ===========================================================================
+ * PREMIUM COMPONENTS (v3) — the patterns that make a screen read premium.
+ * See DESIGN-SYSTEM.md for when/why to use each.
+ * ========================================================================= */
+
+/* Popup shell: sits on the neutral surface, comfortable padding, grid rhythm */
+.newr0063-popup { background: var(--newr0063-surface); }
+.newr0063-stack { display: flex; flex-direction: column; gap: var(--newr0063-space-4);
+  padding: var(--newr0063-space-5); }
+
+/* Section label — 11px uppercase tracked muted (AdBlock "NUMBER OF ITEMS…") */
+.newr0063-eyebrow {
+  margin: 0 0 var(--newr0063-space-2);
+  font-size: 11px; font-weight: var(--newr0063-fw-heading);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--newr0063-text-secondary);
+}
+
+/* ---- Hero stat — the ONE thing the eye lands on first --------------------- */
+.newr0063-hero { text-align: center; padding: var(--newr0063-space-7) var(--newr0063-space-5); }
+.newr0063-hero__num {
+  font-size: var(--newr0063-fs-hero); font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.05; color: var(--newr0063-primary);
+}
+.newr0063-hero__num--pro { color: var(--newr0063-pro); }
+.newr0063-hero__label {
+  margin-top: var(--newr0063-space-2);
+  font-size: 11px; font-weight: var(--newr0063-fw-heading);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--newr0063-text-secondary);
+}
+.newr0063-hero__sub { margin-top: var(--newr0063-space-3); color: var(--newr0063-text); }
+/* gradient progress — thin, calm */
+.newr0063-progress { height: 6px; border-radius: 999px; background: var(--newr0063-surface-2); overflow: hidden; }
+.newr0063-progress__fill { height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--newr0063-primary), var(--newr0063-accent)); }
+
+/* Inline stat row — "4 suspended · 45 total · 6 windows" */
+.newr0063-stats { display: flex; justify-content: center; gap: var(--newr0063-space-4);
+  font-size: var(--newr0063-fs-caption); color: var(--newr0063-text-secondary); }
+.newr0063-stats b { color: var(--newr0063-text); font-weight: var(--newr0063-fw-heading); }
+
+/* ---- Badges --------------------------------------------------------------- */
+.newr0063-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4;
+  border-radius: var(--newr0063-radius-pill);
+}
+.newr0063-badge--pro  { color: var(--newr0063-on-pro); background: var(--newr0063-pro); }
+.newr0063-badge--free { color: var(--newr0063-text-secondary); background: var(--newr0063-surface-2); }
+.newr0063-badge--new  { color: #fff; background: #3bf661; }
+
+/* ---- Loss-framing alert — the cost of NOT upgrading (use once, honestly) --- */
+.newr0063-alert {
+  display: flex; align-items: center; gap: var(--newr0063-space-2);
+  padding: 10px 12px; border-radius: var(--newr0063-radius-btn);
+  font-size: var(--newr0063-fs-body);
+}
+.newr0063-alert--warn {
+  color: var(--newr0063-error);
+  background: color-mix(in srgb, var(--newr0063-error) 8%, var(--newr0063-bg));
+  border: 1px solid color-mix(in srgb, var(--newr0063-error) 22%, transparent);
+}
+
+/* ---- Empty state — delight, never a blank box ----------------------------- */
+.newr0063-empty { text-align: center; padding: var(--newr0063-space-7) var(--newr0063-space-5); }
+.newr0063-empty__art { width: 96px; height: 96px; margin: 0 auto var(--newr0063-space-4); opacity: 0.9; }
+.newr0063-empty__title { font-size: var(--newr0063-fs-heading); font-weight: 700; letter-spacing: -0.01em; }
+.newr0063-empty__text { margin-top: var(--newr0063-space-2); color: var(--newr0063-text-secondary); }
+
+/* ---- Tip carousel — dismissible in-context hint --------------------------- */
+.newr0063-tip {
+  position: relative; border-radius: var(--newr0063-radius-card);
+  border: 1px solid var(--newr0063-border); background: var(--newr0063-bg);
+  border-left: 3px solid var(--newr0063-primary);
+  padding: var(--newr0063-space-4) var(--newr0063-space-5);
+}
+.newr0063-tip__foot { display: flex; justify-content: space-between; align-items: center;
+  margin-top: var(--newr0063-space-3); font-size: var(--newr0063-fs-caption); color: var(--newr0063-text-secondary); }
+.newr0063-tip__next { color: var(--newr0063-primary); font-weight: var(--newr0063-fw-medium); cursor: pointer; }
+
+/* ---- List row ------------------------------------------------------------- */
+.newr0063-row {
+  display: flex; align-items: center; gap: var(--newr0063-space-3);
+  min-height: 44px; padding: var(--newr0063-space-2) var(--newr0063-space-3);
+  border-radius: var(--newr0063-radius-btn); cursor: pointer;
+  transition: background var(--newr0063-transition);
+}
+.newr0063-row:hover { background: var(--newr0063-primary-50); }
+.newr0063-row__label { flex: 1; min-width: 0; }
+.newr0063-row__meta { color: var(--newr0063-text-secondary); font-family: var(--newr0063-font-mono);
+  font-size: var(--newr0063-fs-caption); }
+
+/* ---- Segmented control — Tab / Screen / Webcam --------------------------- */
+.newr0063-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--newr0063-space-2); }
+.newr0063-seg__item {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: var(--newr0063-space-3); border: 1px solid var(--newr0063-border);
+  border-radius: var(--newr0063-radius-card); background: var(--newr0063-bg);
+  cursor: pointer; transition: border-color var(--newr0063-transition), background var(--newr0063-transition);
+}
+.newr0063-seg__item:hover { border-color: var(--newr0063-primary-light); }
+.newr0063-seg__item[aria-selected='true'] { border-color: var(--newr0063-primary); background: var(--newr0063-primary-50); }
+
+@media (prefers-reduced-motion: reduce) {
+  .newr0063-root *, .newr0063-root *::before, .newr0063-root *::after {
+    transition: none !important; animation: none !important;
+  }
+}
+
+/* Zovo conversion sidebar — uses newr0063-base.css tokens (--newr0063-*). Light+dark via tokens.
+   Adapted to use --newr0063-primary (purple #5ce7bd) for the gradient, not --newr0063-accent (teal). */
+.newr0063-sidebar{display:flex;flex-direction:column;gap:14px;width:280px;flex:none}
+.zs-card{background:var(--newr0063-surface,#fff);border:1px solid var(--newr0063-border,#e5ebe7);border-radius:14px;padding:16px}
+.zs-card--pro{background:linear-gradient(160deg,var(--newr0063-primary,#5ce7bd) 0%,#46d6aa 100%);border:none;color:#fff}
+.zs-card--pro .zs-sub{color:rgba(255,255,255,.82)}
+.zs-eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;opacity:.8;margin-bottom:6px}
+.zs-h{font-size:16px;font-weight:700;letter-spacing:-.01em;margin:0 0 10px;line-height:1.25}
+.zs-stack{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:7px;font-size:13px}
+.zs-stack li{padding-left:20px;position:relative}
+.zs-stack li::before{content:"\2713";position:absolute;left:0;font-weight:800}
+.zs-sub{font-size:11.5px;margin:8px 0 0;text-align:center;opacity:.85}
+.zs-stars{color:var(--newr0063-pro,#f621c8);font-size:18px;letter-spacing:2px;margin-bottom:6px}
+.zs-x{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 2px;border-bottom:1px solid var(--newr0063-border,#eee);text-decoration:none;color:var(--newr0063-text,#1a2e26);font-size:13px}
+.zs-x:last-of-type{border-bottom:none}
+.zs-x:hover .zs-x__nm{color:var(--newr0063-primary,#5ce7bd)}
+.zs-x__go{color:var(--newr0063-text-secondary,#a0aa99)}
+.zs-foot{display:flex;gap:14px;justify-content:center;font-size:11.5px}
+.zs-foot a{color:var(--newr0063-text-secondary,#8ba990);text-decoration:none}
+.zs-foot a:hover{color:var(--newr0063-primary,#5ce7bd)}
+@media(prefers-color-scheme:dark){.zs-card{background:var(--newr0063-surface,#162719);border-color:var(--newr0063-border,#233a27)}.zs-x{color:var(--newr0063-text,#e6f3e7)}}
+
+/* ============================================================================
+ * options.css — New Reddit Declutter options-page polish.
+ * Imports the shared Zovo design system, then adds options-specific styles.
+ * ========================================================================== */
+
+/* ---- Shell ---------------------------------------------------------------- */
+body.newr0063 {
+    margin: 0;
+    background: var(--newr0063-surface);
+    color: var(--newr0063-text);
+    font-family: var(--newr0063-font);
+    -webkit-font-smoothing: antialiased;
+}
+
+.rd-options {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--newr0063-space-6) var(--newr0063-space-5) var(--newr0063-space-8);
+}
+
+/* Two-column layout: main content + sidebar rail */
+.rd-options__layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--newr0063-space-6);
+    align-items: start;
+}
+@media (max-width: 820px) {
+    .rd-options__layout {
+        grid-template-columns: 1fr;
+    }
+}
+.rd-options__main {
+    min-width: 0;
+}
+.rd-options__rail {
+    position: sticky;
+    top: var(--newr0063-space-4);
+}
+
+/* ---- Options header ------------------------------------------------------- */
+.rd-options__header {
+    margin-bottom: var(--newr0063-space-6);
+}
+.rd-options__title {
+    font-size: var(--newr0063-fs-title);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--newr0063-space-1);
+}
+.rd-options__subtitle {
+    color: var(--newr0063-text-secondary);
+    font-size: var(--newr0063-fs-body);
+    margin: 0;
+}
+
+/* ---- Tabs ----------------------------------------------------------------- */
+.rd-tabs {
+    display: flex;
+    gap: var(--newr0063-space-1);
+    border-bottom: 1px solid var(--newr0063-border);
+    margin-bottom: var(--newr0063-space-5);
+    overflow-x: auto;
+}
+.rd-tab {
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: var(--newr0063-space-3) var(--newr0063-space-4);
+    font: inherit;
+    font-size: var(--newr0063-fs-body);
+    font-weight: var(--newr0063-fw-medium);
+    color: var(--newr0063-text-secondary);
+    cursor: pointer;
+    transition: color var(--newr0063-transition), border-color var(--newr0063-transition);
+    white-space: nowrap;
+}
+.rd-tab:hover {
+    color: var(--newr0063-text);
+}
+.rd-tab[aria-checked='true'] {
+    color: var(--newr0063-primary);
+    border-bottom-color: var(--newr0063-primary);
+}
+.rd-tab:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--newr0063-bg), 0 0 0 4px var(--newr0063-primary);
+    border-radius: 4px;
+}
+
+/* ---- Section card --------------------------------------------------------- */
+.rd-section {
+    background: var(--newr0063-bg);
+    border: 1px solid var(--newr0063-border);
+    border-radius: var(--newr0063-radius-card);
+    padding: var(--newr0063-space-5);
+    margin-bottom: var(--newr0063-space-4);
+    box-shadow: var(--newr0063-shadow);
+}
+.rd-section--flush {
+    box-shadow: none;
+    background: var(--newr0063-surface);
+}
+.rd-section__title {
+    margin: 0 0 var(--newr0063-space-2);
+    font-size: var(--newr0063-fs-heading);
+    font-weight: var(--newr0063-fw-heading);
+    letter-spacing: -0.01em;
+}
+.rd-section__hint {
+    margin: 0 0 var(--newr0063-space-4);
+    color: var(--newr0063-text-secondary);
+    font-size: var(--newr0063-fs-caption);
+}
+
+/* ---- Form rows ------------------------------------------------------------ */
+.rd-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--newr0063-space-2);
+    margin-bottom: var(--newr0063-space-4);
+}
+.rd-field__label {
+    font-size: var(--newr0063-fs-caption);
+    font-weight: var(--newr0063-fw-medium);
+    color: var(--newr0063-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.rd-inline {
+    display: flex;
+    align-items: center;
+    gap: var(--newr0063-space-3);
+    min-height: 44px;
+}
+.rd-inline__label {
+    flex: 1;
+    font-size: var(--newr0063-fs-body);
+    font-weight: var(--newr0063-fw-medium);
+}
+
+/* ---- Pro lock banner ------------------------------------------------------ */
+.rd-pro-lock {
+    display: flex;
+    align-items: center;
+    gap: var(--newr0063-space-3);
+    padding: var(--newr0063-space-3) var(--newr0063-space-4);
+    border-radius: var(--newr0063-radius-card);
+    background: color-mix(in srgb, var(--newr0063-pro) 8%, var(--newr0063-bg));
+    border: 1px solid color-mix(in srgb, var(--newr0063-pro) 25%, transparent);
+    margin-bottom: var(--newr0063-space-4);
+}
+.rd-pro-lock__icon {
+    font-size: 20px;
+}
+.rd-pro-lock__text {
+    flex: 1;
+    font-size: var(--newr0063-fs-body);
+    color: var(--newr0063-pro-dark);
+    font-weight: var(--newr0063-fw-medium);
+}
+
+/* ---- Subreddit profile list ----------------------------------------------- */
+.rd-profile-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.rd-profile-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--newr0063-space-3);
+    padding: var(--newr0063-space-2) var(--newr0063-space-3);
+    border-radius: var(--newr0063-radius-btn);
+    min-height: 44px;
+}
+.rd-profile-list li:hover {
+    background: var(--newr0063-primary-50);
+}
+.rd-profile-list__name {
+    flex: 1;
+    font-weight: var(--newr0063-fw-medium);
+}
+.rd-profile-list__meta {
+    font-size: var(--newr0063-fs-caption);
+    color: var(--newr0063-text-secondary);
+    font-family: var(--newr0063-font-mono);
+}
+
+/* ---- Custom rule list ----------------------------------------------------- */
+.rd-rules-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.rd-rules-list li {
+    padding: var(--newr0063-space-3);
+    border: 1px solid var(--newr0063-border);
+    border-radius: var(--newr0063-radius-btn);
+    margin-bottom: var(--newr0063-space-2);
+}
+.rd-rules-list__label {
+    font-weight: var(--newr0063-fw-heading);
+    margin-bottom: var(--newr0063-space-1);
+}
+.rd-rules-list__selector {
+    font-family: var(--newr0063-font-mono);
+    font-size: var(--newr0063-fs-caption);
+    color: var(--newr0063-text-secondary);
+    word-break: break-all;
+}
+
+/* ---- Tag input (chips) ---------------------------------------------------- */
+.rd-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--newr0063-space-2);
+    padding: var(--newr0063-space-2);
+    border: 1px solid var(--newr0063-border);
+    border-radius: var(--newr0063-radius-input);
+    background: var(--newr0063-surface);
+    min-height: 44px;
+}
+.rd-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--newr0063-space-1);
+    padding: 2px 8px;
+    border-radius: var(--newr0063-radius-pill);
+    background: var(--newr0063-primary-50);
+    color: var(--newr0063-text);
+    font-size: var(--newr0063-fs-caption);
+}
+.rd-chip__x {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--newr0063-text-secondary);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+}
+.rd-chip__x:hover {
+    color: var(--newr0063-error);
+}
+.rd-chip-input {
+    flex: 1;
+    min-width: 120px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--newr0063-text);
+    font: inherit;
+    font-size: var(--newr0063-fs-body);
+    padding: 4px;
+}
+
+/* ---- Theme segmented control ---------------------------------------------- */
+.rd-seg {
+    display: inline-flex;
+    border: 1px solid var(--newr0063-border);
+    border-radius: var(--newr0063-radius-btn);
+    overflow: hidden;
+}
+.rd-seg__opt {
+    appearance: none;
+    background: var(--newr0063-bg);
+    border: none;
+    border-right: 1px solid var(--newr0063-border);
+    padding: 8px 16px;
+    font: inherit;
+    font-size: var(--newr0063-fs-body);
+    cursor: pointer;
+    color: var(--newr0063-text-secondary);
+    transition: background var(--newr0063-transition), color var(--newr0063-transition);
+}
+.rd-seg__opt:last-child {
+    border-right: none;
+}
+.rd-seg__opt[aria-checked='true'] {
+    background: var(--newr0063-primary);
+    color: #fff;
+}
+.rd-seg__opt:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--newr0063-bg), 0 0 0 4px var(--newr0063-primary);
+}
+
+/* ---- License box ---------------------------------------------------------- */
+.rd-license {
+    background: var(--newr0063-surface);
+    border: 1px solid var(--newr0063-border);
+    border-radius: var(--newr0063-radius-card);
+    padding: var(--newr0063-space-5);
+}
+.rd-license__row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--newr0063-space-2) 0;
+    border-bottom: 1px solid var(--newr0063-border);
+    font-size: var(--newr0063-fs-body);
+}
+.rd-license__row:last-child {
+    border-bottom: none;
+}
+.rd-license__row b {
+    font-weight: var(--newr0063-fw-heading);
+}
+.rd-license__status--pro {
+    color: var(--newr0063-pro-dark);
+    font-weight: var(--newr0063-fw-heading);
+}
+.rd-license__status--free {
+    color: var(--newr0063-text-secondary);
+}
+
+/* ---- Helpers -------------------------------------------------------------- */
+.rd-grow {
+    flex: 1;
+}
+.rd-row-actions {
+    display: flex;
+    gap: var(--newr0063-space-2);
+}
+.rd-danger {
+    color: var(--newr0063-error);
+}
+.rd-success {
+    color: var(--newr0063-success);
+}
+
+/* ---- Paywall card (shared with popup) ------------------------------------- */
+.newr0063-paywall {
+    text-align: center;
+}
+

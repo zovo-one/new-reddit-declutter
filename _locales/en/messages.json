@@ -1,0 +1,210 @@
+{
+  "extName": {
+    "message": "New Reddit Declutter — Clean Reddit, Hide the Clutter",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions. Must be ≤75 chars."
+  },
+  "extDesc": {
+    "message": "Hide promoted posts, sidebars, chat bubbles, app nags, awards and recommended clutter from new Reddit. Calmer feed, zero tracking.",
+    "description": "Extension description for the Chrome Web Store listing. Must be ≤132 chars."
+  },
+  "popupTitle": {
+    "message": "New Reddit Declutter",
+    "description": "Header title shown at the top of the popup."
+  },
+  "badgePro": {
+    "message": "PRO",
+    "description": "Tier badge shown in the popup header for Pro users."
+  },
+  "badgeFree": {
+    "message": "FREE",
+    "description": "Tier badge shown in the popup header for Free users."
+  },
+  "badgeProLabel": {
+    "message": "Pro tier",
+    "description": "aria-label for the Pro tier badge."
+  },
+  "badgeFreeLabel": {
+    "message": "Free tier",
+    "description": "aria-label for the Free tier badge."
+  },
+  "heroLabel": {
+    "message": "Clutter Elements Hidden",
+    "description": "Caption under the big hide-count number in the popup hero."
+  },
+  "heroSubActive": {
+    "message": "this session on new Reddit",
+    "description": "Subtext under the hide count when items have been hidden."
+  },
+  "heroSubIdle": {
+    "message": "open reddit.com to start decluttering",
+    "description": "Subtext under the hide count when nothing has been hidden yet."
+  },
+  "heroReset": {
+    "message": "reset",
+    "description": "Link text to reset the session hide count."
+  },
+  "heroResetLabel": {
+    "message": "Reset session count",
+    "description": "aria-label for the reset-count link."
+  },
+  "heroAriaTemplate": {
+    "message": "$count$ clutter elements hidden",
+    "description": "aria-label for the hide-count number. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "masterLabel": {
+    "message": "Declutter",
+    "description": "Label next to the master on/off toggle in the popup."
+  },
+  "masterSwitchLabel": {
+    "message": "Toggle New Reddit Declutter master switch",
+    "description": "aria-label for the master switch."
+  },
+  "modulesLabel": {
+    "message": "Modules",
+    "description": "Section heading above the per-module toggle list."
+  },
+  "modulePromoted": {
+    "message": "Promoted posts",
+    "description": "Module toggle label: hide Reddit promoted/ad posts."
+  },
+  "moduleSidebar": {
+    "message": "Right sidebar",
+    "description": "Module toggle label: hide the Reddit right sidebar."
+  },
+  "moduleRails": {
+    "message": "Community rails",
+    "description": "Module toggle label: hide community recommendation rails."
+  },
+  "moduleChat": {
+    "message": "Chat bubble",
+    "description": "Module toggle label: hide the Reddit chat bubble."
+  },
+  "moduleAppNags": {
+    "message": "App nags",
+    "description": "Module toggle label: hide 'open in app' banners and nags."
+  },
+  "moduleRecommended": {
+    "message": "Recommended communities",
+    "description": "Module toggle label: hide the recommended-communities widget."
+  },
+  "moduleAwards": {
+    "message": "Awards",
+    "description": "Module toggle label: hide Reddit awards."
+  },
+  "moduleCompact": {
+    "message": "Compact feed mode",
+    "description": "Module toggle label: enable compact feed layout."
+  },
+  "proBadge": {
+    "message": "PRO",
+    "description": "Small badge on a module row indicating a Pro-only feature."
+  },
+  "proFeatureLabel": {
+    "message": "Pro feature",
+    "description": "aria-label for the Pro badge on a locked module row."
+  },
+  "emptyTitle": {
+    "message": "Uncluttered when you are.",
+    "description": "Headline shown when all modules are turned off."
+  },
+  "emptyBody": {
+    "message": "New Reddit, calmed down. Pick what to hide above.",
+    "description": "Body text shown when all modules are turned off."
+  },
+  "staleSingular": {
+    "message": "1 module needs an update — we're on it.",
+    "description": "Notice shown when exactly one selector has stopped matching."
+  },
+  "stalePluralTemplate": {
+    "message": "$count$ modules need an update — we're on it.",
+    "description": "Notice shown when multiple selectors have stopped matching. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "upgradeNudgeLabel": {
+    "message": "Unlock profiles, custom rules & sync",
+    "description": "Gold CTA button label for Free users."
+  },
+  "upgradeNudgeAria": {
+    "message": "Upgrade to Pro for per-subreddit profiles and custom hide rules",
+    "description": "aria-label for the upgrade CTA button."
+  },
+  "paywallAria": {
+    "message": "Upgrade to Pro",
+    "description": "aria-label for the in-popup paywall card."
+  },
+  "footerLink": {
+    "message": "zovo.one",
+    "description": "Display text for the zovo.one link in the popup footer."
+  },
+  "themeSwitchToLight": {
+    "message": "Switch to light",
+    "description": "aria-label for the theme toggle when currently in dark mode."
+  },
+  "themeSwitchToAuto": {
+    "message": "Switch to auto",
+    "description": "aria-label for the theme toggle when currently in light mode."
+  },
+  "themeSwitchToDark": {
+    "message": "Switch to dark",
+    "description": "aria-label for the theme toggle when currently in auto mode."
+  },
+  "themeLabelLight": {
+    "message": "Light",
+    "description": "Theme toggle visible label for the light theme."
+  },
+  "themeLabelAuto": {
+    "message": "Auto",
+    "description": "Theme toggle visible label for the auto theme."
+  },
+  "themeLabelDark": {
+    "message": "Dark",
+    "description": "Theme toggle visible label for the dark theme."
+  },
+  "optionsTitle": {
+    "message": "New Reddit Declutter",
+    "description": "H1 heading at the top of the options page."
+  },
+  "optionsSubtitle": {
+    "message": "Calm down new Reddit. Hide promoted posts, sidebars, community rails, chat, app nags, and more.",
+    "description": "Subtitle paragraph under the options page heading."
+  },
+  "tabGeneral": {
+    "message": "General",
+    "description": "Options page tab label: general settings."
+  },
+  "tabProfiles": {
+    "message": "Profiles",
+    "description": "Options page tab label: per-subreddit profiles."
+  },
+  "tabRules": {
+    "message": "Hide Rules",
+    "description": "Options page tab label: custom hide rules."
+  },
+  "tabFilters": {
+    "message": "Keyword Filters",
+    "description": "Options page tab label: keyword and flair filters."
+  },
+  "tabSync": {
+    "message": "Sync",
+    "description": "Options page tab label: cross-device sync."
+  },
+  "tabLicense": {
+    "message": "License",
+    "description": "Options page tab label: license manager."
+  },
+  "optionsSectionsAria": {
+    "message": "Options sections",
+    "description": "aria-label for the options page tab radiogroup."
+  }
+}

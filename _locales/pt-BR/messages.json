@@ -1,0 +1,210 @@
+{
+  "extName": {
+    "message": "Reddit Declutter — Reddit limpo, sem poluição",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions. Must be ≤75 chars."
+  },
+  "extDesc": {
+    "message": "Oculta posts patrocinados, barras laterais, chat, avisos de app e recomendações do novo Reddit. Feed tranquilo, sem rastreamento.",
+    "description": "Extension description for the Chrome Web Store listing. Must be ≤132 chars."
+  },
+  "popupTitle": {
+    "message": "Reddit Declutter",
+    "description": "Header title shown at the top of the popup."
+  },
+  "badgePro": {
+    "message": "PRO",
+    "description": "Tier badge shown in the popup header for Pro users."
+  },
+  "badgeFree": {
+    "message": "FREE",
+    "description": "Tier badge shown in the popup header for Free users."
+  },
+  "badgeProLabel": {
+    "message": "Plano Pro",
+    "description": "aria-label for the Pro tier badge."
+  },
+  "badgeFreeLabel": {
+    "message": "Plano Free",
+    "description": "aria-label for the Free tier badge."
+  },
+  "heroLabel": {
+    "message": "Elementos ocultos",
+    "description": "Caption under the big hide-count number in the popup hero."
+  },
+  "heroSubActive": {
+    "message": "nesta sessão no novo Reddit",
+    "description": "Subtext under the hide count when items have been hidden."
+  },
+  "heroSubIdle": {
+    "message": "abra reddit.com para começar",
+    "description": "Subtext under the hide count when nothing has been hidden yet."
+  },
+  "heroReset": {
+    "message": "resetar",
+    "description": "Link text to reset the session hide count."
+  },
+  "heroResetLabel": {
+    "message": "Resetar contador da sessão",
+    "description": "aria-label for the reset-count link."
+  },
+  "heroAriaTemplate": {
+    "message": "$count$ elementos ocultos",
+    "description": "aria-label for the hide-count number. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "masterLabel": {
+    "message": "Limpar",
+    "description": "Label next to the master on/off toggle in the popup."
+  },
+  "masterSwitchLabel": {
+    "message": "Ativar/desativar Reddit Declutter",
+    "description": "aria-label for the master switch."
+  },
+  "modulesLabel": {
+    "message": "Módulos",
+    "description": "Section heading above the per-module toggle list."
+  },
+  "modulePromoted": {
+    "message": "Posts patrocinados",
+    "description": "Module toggle label: hide Reddit promoted/ad posts."
+  },
+  "moduleSidebar": {
+    "message": "Barra lateral direita",
+    "description": "Module toggle label: hide the Reddit right sidebar."
+  },
+  "moduleRails": {
+    "message": "Trilhos de comunidades",
+    "description": "Module toggle label: hide community recommendation rails."
+  },
+  "moduleChat": {
+    "message": "Balão de chat",
+    "description": "Module toggle label: hide the Reddit chat bubble."
+  },
+  "moduleAppNags": {
+    "message": "Avisos de app",
+    "description": "Module toggle label: hide 'open in app' banners and nags."
+  },
+  "moduleRecommended": {
+    "message": "Comunidades recomendadas",
+    "description": "Module toggle label: hide the recommended-communities widget."
+  },
+  "moduleAwards": {
+    "message": "Recompensas",
+    "description": "Module toggle label: hide Reddit awards."
+  },
+  "moduleCompact": {
+    "message": "Modo compacto",
+    "description": "Module toggle label: enable compact feed layout."
+  },
+  "proBadge": {
+    "message": "PRO",
+    "description": "Small badge on a module row indicating a Pro-only feature."
+  },
+  "proFeatureLabel": {
+    "message": "Recurso Pro",
+    "description": "aria-label for the Pro badge on a locked module row."
+  },
+  "emptyTitle": {
+    "message": "Limpo quando você quiser.",
+    "description": "Headline shown when all modules are turned off."
+  },
+  "emptyBody": {
+    "message": "Novo Reddit, mais tranquilo. Escolha o que ocultar acima.",
+    "description": "Body text shown when all modules are turned off."
+  },
+  "staleSingular": {
+    "message": "1 módulo precisa de atualização — trabalhando nisso.",
+    "description": "Notice shown when exactly one selector has stopped matching."
+  },
+  "stalePluralTemplate": {
+    "message": "$count$ módulos precisam de atualização — trabalhando nisso.",
+    "description": "Notice shown when multiple selectors have stopped matching. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "upgradeNudgeLabel": {
+    "message": "Desbloqueie perfis, regras e sync",
+    "description": "Gold CTA button label for Free users."
+  },
+  "upgradeNudgeAria": {
+    "message": "Atualizar para Pro para perfis e regras personalizadas",
+    "description": "aria-label for the upgrade CTA button."
+  },
+  "paywallAria": {
+    "message": "Atualizar para Pro",
+    "description": "aria-label for the in-popup paywall card."
+  },
+  "footerLink": {
+    "message": "zovo.one",
+    "description": "Display text for the zovo.one link in the popup footer."
+  },
+  "themeSwitchToLight": {
+    "message": "Mudar para claro",
+    "description": "aria-label for the theme toggle when currently in dark mode."
+  },
+  "themeSwitchToAuto": {
+    "message": "Mudar para automático",
+    "description": "aria-label for the theme toggle when currently in light mode."
+  },
+  "themeSwitchToDark": {
+    "message": "Mudar para escuro",
+    "description": "aria-label for the theme toggle when currently in auto mode."
+  },
+  "themeLabelLight": {
+    "message": "Claro",
+    "description": "Theme toggle visible label for the light theme."
+  },
+  "themeLabelAuto": {
+    "message": "Auto",
+    "description": "Theme toggle visible label for the auto theme."
+  },
+  "themeLabelDark": {
+    "message": "Escuro",
+    "description": "Theme toggle visible label for the dark theme."
+  },
+  "optionsTitle": {
+    "message": "Reddit Declutter",
+    "description": "H1 heading at the top of the options page."
+  },
+  "optionsSubtitle": {
+    "message": "Acalme o novo Reddit. Oculte patrocinados, barras laterais, chat, avisos de app e mais.",
+    "description": "Subtitle paragraph under the options page heading."
+  },
+  "tabGeneral": {
+    "message": "Geral",
+    "description": "Options page tab label: general settings."
+  },
+  "tabProfiles": {
+    "message": "Perfis",
+    "description": "Options page tab label: per-subreddit profiles."
+  },
+  "tabRules": {
+    "message": "Regras",
+    "description": "Options page tab label: custom hide rules."
+  },
+  "tabFilters": {
+    "message": "Filtros de palavras",
+    "description": "Options page tab label: keyword and flair filters."
+  },
+  "tabSync": {
+    "message": "Sync",
+    "description": "Options page tab label: cross-device sync."
+  },
+  "tabLicense": {
+    "message": "Licença",
+    "description": "Options page tab label: license manager."
+  },
+  "optionsSectionsAria": {
+    "message": "Seções de opções",
+    "description": "aria-label for the options page tab radiogroup."
+  }
+}

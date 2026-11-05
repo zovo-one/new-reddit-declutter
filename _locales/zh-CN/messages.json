@@ -1,0 +1,210 @@
+{
+  "extName": {
+    "message": "Reddit Declutter — 干净的 Reddit，隐藏杂乱",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions. Must be ≤75 chars."
+  },
+  "extDesc": {
+    "message": "隐藏新版 Reddit 的推广、侧边栏、聊天、应用提示和推荐。更清爽的动态，零追踪。",
+    "description": "Extension description for the Chrome Web Store listing. Must be ≤132 chars."
+  },
+  "popupTitle": {
+    "message": "Reddit Declutter",
+    "description": "Header title shown at the top of the popup."
+  },
+  "badgePro": {
+    "message": "PRO",
+    "description": "Tier badge shown in the popup header for Pro users."
+  },
+  "badgeFree": {
+    "message": "FREE",
+    "description": "Tier badge shown in the popup header for Free users."
+  },
+  "badgeProLabel": {
+    "message": "Pro 版",
+    "description": "aria-label for the Pro tier badge."
+  },
+  "badgeFreeLabel": {
+    "message": "Free 版",
+    "description": "aria-label for the Free tier badge."
+  },
+  "heroLabel": {
+    "message": "已隐藏元素",
+    "description": "Caption under the big hide-count number in the popup hero."
+  },
+  "heroSubActive": {
+    "message": "本次会话（新版 Reddit）",
+    "description": "Subtext under the hide count when items have been hidden."
+  },
+  "heroSubIdle": {
+    "message": "打开 reddit.com 开始",
+    "description": "Subtext under the hide count when nothing has been hidden yet."
+  },
+  "heroReset": {
+    "message": "重置",
+    "description": "Link text to reset the session hide count."
+  },
+  "heroResetLabel": {
+    "message": "重置会话计数",
+    "description": "aria-label for the reset-count link."
+  },
+  "heroAriaTemplate": {
+    "message": "已隐藏 $count$ 个元素",
+    "description": "aria-label for the hide-count number. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "42"
+      }
+    }
+  },
+  "masterLabel": {
+    "message": "清理",
+    "description": "Label next to the master on/off toggle in the popup."
+  },
+  "masterSwitchLabel": {
+    "message": "切换 Reddit Declutter 主开关",
+    "description": "aria-label for the master switch."
+  },
+  "modulesLabel": {
+    "message": "模块",
+    "description": "Section heading above the per-module toggle list."
+  },
+  "modulePromoted": {
+    "message": "推广帖子",
+    "description": "Module toggle label: hide Reddit promoted/ad posts."
+  },
+  "moduleSidebar": {
+    "message": "右侧边栏",
+    "description": "Module toggle label: hide the Reddit right sidebar."
+  },
+  "moduleRails": {
+    "message": "社区推荐栏",
+    "description": "Module toggle label: hide community recommendation rails."
+  },
+  "moduleChat": {
+    "message": "聊天气泡",
+    "description": "Module toggle label: hide the Reddit chat bubble."
+  },
+  "moduleAppNags": {
+    "message": "应用提示",
+    "description": "Module toggle label: hide 'open in app' banners and nags."
+  },
+  "moduleRecommended": {
+    "message": "推荐社区",
+    "description": "Module toggle label: hide the recommended-communities widget."
+  },
+  "moduleAwards": {
+    "message": "奖项",
+    "description": "Module toggle label: hide Reddit awards."
+  },
+  "moduleCompact": {
+    "message": "紧凑模式",
+    "description": "Module toggle label: enable compact feed layout."
+  },
+  "proBadge": {
+    "message": "PRO",
+    "description": "Small badge on a module row indicating a Pro-only feature."
+  },
+  "proFeatureLabel": {
+    "message": "Pro 功能",
+    "description": "aria-label for the Pro badge on a locked module row."
+  },
+  "emptyTitle": {
+    "message": "随时保持清爽。",
+    "description": "Headline shown when all modules are turned off."
+  },
+  "emptyBody": {
+    "message": "新版 Reddit，更安静。在上面选择要隐藏的内容。",
+    "description": "Body text shown when all modules are turned off."
+  },
+  "staleSingular": {
+    "message": "1 个模块需要更新 — 正在处理。",
+    "description": "Notice shown when exactly one selector has stopped matching."
+  },
+  "stalePluralTemplate": {
+    "message": "$count$ 个模块需要更新 — 正在处理。",
+    "description": "Notice shown when multiple selectors have stopped matching. $count$ is replaced at runtime.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "upgradeNudgeLabel": {
+    "message": "解锁配置、规则和同步",
+    "description": "Gold CTA button label for Free users."
+  },
+  "upgradeNudgeAria": {
+    "message": "升级到 Pro 以获取配置和自定义规则",
+    "description": "aria-label for the upgrade CTA button."
+  },
+  "paywallAria": {
+    "message": "升级到 Pro",
+    "description": "aria-label for the in-popup paywall card."
+  },
+  "footerLink": {
+    "message": "zovo.one",
+    "description": "Display text for the zovo.one link in the popup footer."
+  },
+  "themeSwitchToLight": {
+    "message": "切换到浅色",
+    "description": "aria-label for the theme toggle when currently in dark mode."
+  },
+  "themeSwitchToAuto": {
+    "message": "切换到自动",
+    "description": "aria-label for the theme toggle when currently in light mode."
+  },
+  "themeSwitchToDark": {
+    "message": "切换到深色",
+    "description": "aria-label for the theme toggle when currently in auto mode."
+  },
+  "themeLabelLight": {
+    "message": "浅色",
+    "description": "Theme toggle visible label for the light theme."
+  },
+  "themeLabelAuto": {
+    "message": "自动",
+    "description": "Theme toggle visible label for the auto theme."
+  },
+  "themeLabelDark": {
+    "message": "深色",
+    "description": "Theme toggle visible label for the dark theme."
+  },
+  "optionsTitle": {
+    "message": "Reddit Declutter",
+    "description": "H1 heading at the top of the options page."
+  },
+  "optionsSubtitle": {
+    "message": "让新版 Reddit 更安静。隐藏推广、侧边栏、聊天、应用提示等。",
+    "description": "Subtitle paragraph under the options page heading."
+  },
+  "tabGeneral": {
+    "message": "通用",
+    "description": "Options page tab label: general settings."
+  },
+  "tabProfiles": {
+    "message": "配置",
+    "description": "Options page tab label: per-subreddit profiles."
+  },
+  "tabRules": {
+    "message": "隐藏规则",
+    "description": "Options page tab label: custom hide rules."
+  },
+  "tabFilters": {
+    "message": "关键词过滤",
+    "description": "Options page tab label: keyword and flair filters."
+  },
+  "tabSync": {
+    "message": "同步",
+    "description": "Options page tab label: cross-device sync."
+  },
+  "tabLicense": {
+    "message": "许可证",
+    "description": "Options page tab label: license manager."
+  },
+  "optionsSectionsAria": {
+    "message": "选项分区",
+    "description": "aria-label for the options page tab radiogroup."
+  }
+}

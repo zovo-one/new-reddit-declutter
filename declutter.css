@@ -1,0 +1,180 @@
+/*
+ * New Reddit Declutter — declutter.css
+ *
+ * Loaded at document_start (declared in manifest.json `content_scripts[].css`)
+ * so the rules apply BEFORE Shreddit elements render — zero FOUC.
+ *
+ * Toggling model: every module is scoped behind an
+ *   html[data-newr0063-rd-<module>="on"]
+ * ancestor attribute selector. The content script sets these attributes
+ * on document.documentElement based on user prefs; nothing is injected
+ * or removed dynamically. To turn a module OFF, the SW flips the
+ * attribute to "off" (or removes it) and the rules below simply stop
+ * matching. This is the only mechanism — there is no add/remove <style>
+ * logic, ever.
+ *
+ * Master switch: html[data-newr0063-rd-master="off"] is a kill-switch that
+ * defeats ALL module rules regardless of their own state. Used by the
+ * pause-extension affordance.
+ *
+ * Selectors in this file are MIRRORED from src/rules/rules.ts. If you
+ * change one, change both. RULES_VERSION bumps on any change.
+ *
+ * RULES_VERSION: 1
+ * RULES_LAST_CHECKED: 2026-07-08
+ *
+ * Selector policy: prefer Shreddit custom elements (shreddit-*),
+ * [data-testid=*], and [slot=*] over generated Tailwind classes.
+ * Generated classes churn every Reddit build and silently break rules.
+ */
+
+/* ---------- Master kill switch ---------- */
+
+html[data-newr0063-rd-master="off"] shreddit-post,
+html[data-newr0063-rd-master="off"] shreddit-comment,
+html[data-newr0063-rd-master="off"] shreddit-app,
+html[data-newr0063-rd-master="off"] #right-sidebar-container {
+    display: revert !important;
+}
+
+/* When master is OFF, none of the module rules below should match.
+   The pattern below ensures that: each module rule requires BOTH
+   master=on AND its own flag=on. We achieve the master gate by
+   scoping every rule under html[data-newr0063-rd-master="on"]. */
+
+html:not([data-newr0063-rd-master="on"]) body {
+    /* No-op; ensures the :not() selector compiles. The real gate is
+       that every rule below requires master="on". */
+}
+
+/* ---------- Module: promoted ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] shreddit-post[promoted],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] shreddit-post[data-promoted="true"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] [data-testid="ad-post"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] [data-promoted],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] shreddit-post-prototype-thirdparty-renderer,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] [slot="ad-slot"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"] [data-redditstyle-testids*="promoted"] {
+    display: none !important;
+}
+
+/* Modern browsers (Chrome 105+) support :has() — use it to drop the
+   outer wrapper of any feed item that contains a promoted post. */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"]
+    faceplate-batch[data-testid="post-container"]:has(> article[data-promoted]) {
+    display: none !important;
+}
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-promoted="on"]
+    article:has(> shreddit-post[promoted]) {
+    display: none !important;
+}
+
+/* ---------- Module: sidebar ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] shreddit-sidebar,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] [data-testid="right-sidebar"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] [data-testid="subreddit-right-sidebar"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] aside[data-testid="right-sidebar"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] #right-sidebar-container,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] shreddit-subreddit-right-sidebar,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"] [slot="sidebar"] {
+    display: none !important;
+}
+
+/* When the sidebar is gone, the main content can reclaim the space. */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"]
+    shreddit-gallery-grid,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"]
+    main,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-sidebar="on"]
+    [role="main"] {
+    grid-column: 1 / -1 !important;
+    max-width: 100% !important;
+}
+
+/* ---------- Module: rails ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] shreddit-recent-communities,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] shreddit-popular-communities,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] [data-testid="community-rail"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] [data-testid="recent-communities"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] [data-testid="popular-communities"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] faceplate-tracker[source="community_rail"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-rails="on"] shreddit-community-rail {
+    display: none !important;
+}
+
+/* ---------- Module: appnags ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] [data-testid="app-install-banner"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] shreddit-app-install-banner,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] [slot="app-link-banner"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] div[data-testid="bottom-app-install-button"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] [data-redditstyle-testids*="app-install"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-appnags="on"] shreddit-interstitial-app {
+    display: none !important;
+}
+
+/* ---------- Module: chat (page-level fallback) ---------- */
+/* The chat bubble lives inside a shadow root. This page-level rule
+   catches the host element; the content script's shadow walker also
+   injects scoped styles inside the shadow root for the inner UI. */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-chat="on"] shreddit-chat-float,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-chat="on"] [data-testid="chat-launcher"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-chat="on"] #chat-embed-container,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-chat="on"] faceplate-tracker[source="chat_button"] {
+    display: none !important;
+}
+
+/* ---------- Module: recommended ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-recommended="on"] shreddit-recommended-communities,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-recommended="on"] [data-testid="recommended-communities"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-recommended="on"] [data-testid="recommended-subreddit"] {
+    display: none !important;
+}
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-recommended="on"]
+    faceplate-batch:has(> shreddit-recommended-communities) {
+    display: none !important;
+}
+
+/* ---------- Module: awards ---------- */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-awards="on"] shreddit-award-selection,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-awards="on"] [data-testid="award-button"],
+html[data-newr0063-rd-master="on"][data-newr0063-rd-awards="on"] shreddit-post-awards,
+html[data-newr0063-rd-master="on"][data-newr0063-rd-awards="on"] [slot="awardings"] {
+    display: none !important;
+}
+
+/* ---------- Module: compact ---------- */
+/* Compact mode is the only non-hiding module. It tightens spacing on
+   feed posts via padding/margin reductions. It does NOT hide content. */
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-compact="on"] shreddit-post {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 4px !important;
+}
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-compact="on"]
+    article[data-testid="post-container"] {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+
+html[data-newr0063-rd-master="on"][data-newr0063-rd-compact="on"]
+    faceplate-batch[data-testid="post-container"] {
+    gap: 4px !important;
+}
+
+/* ---------- Idempotency ---------- */
+/* Re-running the content script's attribute setter on <html> must be
+   safe; that's why every rule is purely a function of the data-newr0063-rd-*
+   attributes and never depends on a class added by JS. */
